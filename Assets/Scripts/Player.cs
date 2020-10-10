@@ -10,13 +10,21 @@ public class Player : MonoBehaviour
     public float gravity;
     private float jumpVelocity;
 
+    public float rayRadius;
+    public LayerMask layer;
+
     public float horizontalSpeed;
     private bool isMovingLeft;
     private bool isMovingRight;
+
+    public Animator anim;
+    private bool isDead;
+    private GameController gc;
     void Start()
     {
         //pega o capsule collider do plyer
         controller = GetComponent<CharacterController>();
+        gc = FindObjectOfType<GameController>();
     }
 
     // Update is called once per frame
@@ -47,6 +55,8 @@ public class Player : MonoBehaviour
             jumpVelocity-=gravity;
         }
 
+        OnCollision();
+
         direction.y = jumpVelocity;
 
         controller.Move(direction*Time.deltaTime);
@@ -72,5 +82,23 @@ public class Player : MonoBehaviour
         }
         isMovingRight = false;
     }
+
+
+    void OnCollision(){
+        RaycastHit hit;
+        //mandando uma direção de origem e uma de destino pro Raycast(), retorna oobj no "hit"
+        //manda dps o tamanho do raio e a layer onde deve estar
+        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, rayRadius, layer) && !isDead){
+            anim.SetTrigger("die");//executa animação de morte
+            speed = 0;
+            jumpHeigth = 0;
+            horizontalSpeed = 0;
+            Invoke("GameOver", 3f);
+            isDead = true;
+        }
+    }
     
+    void GameOver(){
+        gc.ShowGameOver();
+    }
 }
