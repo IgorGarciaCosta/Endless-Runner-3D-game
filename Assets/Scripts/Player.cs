@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private CharacterController controller;
+    
     public float speed;
     public float jumpHeigth;
     public float gravity;
@@ -12,13 +13,14 @@ public class Player : MonoBehaviour
 
     public float rayRadius;
     public LayerMask layer;
+    public LayerMask coinLayer;
 
     public float horizontalSpeed;
     private bool isMovingLeft;
     private bool isMovingRight;
 
     public Animator anim;
-    private bool isDead;
+    public bool isDead;
     private GameController gc;
     void Start()
     {
@@ -60,6 +62,8 @@ public class Player : MonoBehaviour
         direction.y = jumpVelocity;
 
         controller.Move(direction*Time.deltaTime);
+
+       
     }
 
     //corrotinas para movimentação
@@ -96,6 +100,15 @@ public class Player : MonoBehaviour
             Invoke("GameOver", 3f);
             isDead = true;
         }
+
+        RaycastHit coinHit;
+        
+        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out coinHit, rayRadius, coinLayer)){
+            gc.AddCoin();
+            Destroy(coinHit.transform.gameObject);
+        }
+
+
     }
     
     void GameOver(){
