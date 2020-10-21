@@ -39,6 +39,7 @@
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\Platform.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\PlayerScript.cs" />
      <Compile Include="Assets\Scripts\SpawnPlatform.cs" />
      <Compile Include="Assets\Scripts\mudarCena.cs" />
     <Reference Include="UnityEngine">
