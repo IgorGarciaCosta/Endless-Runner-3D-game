@@ -1497,6 +1497,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   laneSpeed: 10
+  jumpLength: 7.5
+  jumpHeight: 8
   rayRadius: 10
   coinLayer:
     serializedVersion: 2

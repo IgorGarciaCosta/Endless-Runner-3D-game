@@ -9,6 +9,10 @@ public class PlayerScript : MonoBehaviour
     public float speed;
     public float laneSpeed;
     private int currentLane = 1;
+    private bool jumping = false;
+    private float jumpStart;
+    public float jumpLength;
+    public float jumpHeight;
 
     public float rayRadius;
     public LayerMask coinLayer;
@@ -34,6 +38,25 @@ public class PlayerScript : MonoBehaviour
             ChangeLane(5);
         }
 
+        else if(Input.GetKeyDown(KeyCode.Space)){
+            Jump();
+        }
+
+        if(jumping){
+            float ratio = (transform.position.z-jumpStart)/jumpLength;
+            if(ratio>=1f){
+                jumping = false;
+
+            }
+            else{
+                verticalTargetPosition.y = Mathf.Sin(ratio*Mathf.PI)*jumpHeight;
+            }
+        }
+
+        else{//se estiver no chão
+            verticalTargetPosition.y = Mathf.MoveTowards(verticalTargetPosition.y, 1, 5*Time.deltaTime);
+        }
+
         Vector3 targetPosition = new Vector3(verticalTargetPosition.x, verticalTargetPosition.y, transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, laneSpeed*Time.deltaTime);
 
@@ -52,6 +75,13 @@ public class PlayerScript : MonoBehaviour
         }
         currentLane = targetLane;
         verticalTargetPosition = new Vector3((currentLane-1), 1, 0);
+    }
+
+    void Jump(){
+        if(!jumping){
+            jumpStart = transform.position.z;
+            jumping = true;
+        }
     }
 
     void OnCollision(){
