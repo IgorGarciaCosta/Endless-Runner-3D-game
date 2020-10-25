@@ -1397,10 +1397,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1925409526}
-  - component: {fileID: 1925409524}
   - component: {fileID: 1925409528}
   - component: {fileID: 1925409525}
   - component: {fileID: 1925409527}
+  - component: {fileID: 1925409529}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1408,31 +1408,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1925409524
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1925409523}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ce2a94046f128e4cb77e5ef023966fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 20
-  jumpHeigth: 15
-  gravity: 1
-  rayRadius: 1
-  layer:
-    serializedVersion: 2
-    m_Bits: 256
-  coinLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  horizontalSpeed: 5
-  anim: {fileID: 667403999}
-  isDead: 0
 --- !u!143 &1925409525
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1442,7 +1417,7 @@ CharacterController:
   m_GameObject: {fileID: 1925409523}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 1.22
   m_Radius: 0.2
@@ -1495,7 +1470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 894547b6ea6f92545a6c21f489ec95b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 10
   laneSpeed: 10
   jumpLength: 7.5
   jumpHeight: 8
@@ -1508,6 +1483,19 @@ MonoBehaviour:
     m_Bits: 256
   isDead: 0
   anim: {fileID: 667403999}
+--- !u!65 &1925409529
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925409523}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.2, z: -6.3}
 --- !u!1 &2100422016
 GameObject:
   m_ObjectHideFlags: 0

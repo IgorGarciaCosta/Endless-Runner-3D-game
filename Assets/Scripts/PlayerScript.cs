@@ -21,7 +21,8 @@ public class PlayerScript : MonoBehaviour
     public Animator anim;
     private GameController gc;
     private Vector3 verticalTargetPosition = new Vector3(0, 1, 0);
-    // Start is called before the first frame update
+    
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -60,15 +61,36 @@ public class PlayerScript : MonoBehaviour
         Vector3 targetPosition = new Vector3(verticalTargetPosition.x, verticalTargetPosition.y, transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, laneSpeed*Time.deltaTime);
 
-        
-    
     }
 
     private void FixedUpdate(){
-        rb.velocity = Vector3.forward*speed;
+        rb.velocity = Vector3.forward*speed;//corre pra frente
     }
 
-    void ChangeLane(int direction){
+    void OnCollisionEnter(Collision collision){
+        if(collision.gameObject.tag == "Death"){
+            anim.SetTrigger("die");//executa animação de morte
+            speed = 0;
+            jumpHeight = 0;
+            jumpLength = 0;
+            Invoke("GameOver", 3f);
+            isDead = true;
+        }
+
+        if(collision.gameObject.tag == "Coin"){
+            gc.AddCoin();
+            //Destroy(coinHit.transform.gameObject); (isso funcionava quando eu usava raycast)
+        }
+    }
+
+    void OnTriggerEnter(Collider moeda){
+        if(moeda.tag == "Coin"){
+            gc.AddCoin();
+            //Destroy(coinHit.transform.gameObject); (isso funcionava quando eu usava raycast)
+        }
+    }
+
+    void ChangeLane(int direction){//muda a trilha de corrida
         int targetLane = currentLane+direction;
         if(targetLane<-4||targetLane>6){
             return;
@@ -84,30 +106,11 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    void OnCollision(){
-        RaycastHit hit;
-        //mandando uma direção de origem e uma de destino pro Raycast(), retorna o obj no "hit"
-        //manda dps o tamanho do raio e a layer onde deve estar
-        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, rayRadius, layer) && !isDead){
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.green, 20, true);
-            anim.SetTrigger("die");//executa animação de morte
-            speed = 0;
-            //jumpHeigth = 0;
-            //horizontalSpeed = 0;
-            Invoke("GameOver", 3f);
-            isDead = true;
-        }
 
-        RaycastHit coinHit;
-        
-        if(Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out coinHit, rayRadius, coinLayer)){
-            gc.AddCoin();
-            Destroy(coinHit.transform.gameObject);
-        }
-
-
-    }
+    
     void GameOver(){
         gc.ShowGameOver();
     }
+
+    
 }
