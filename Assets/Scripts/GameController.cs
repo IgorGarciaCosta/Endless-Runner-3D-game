@@ -24,11 +24,8 @@ public class GameController : MonoBehaviour
     
     void Update()
     {
-    //if(!player.isDead){
-        score+= Time.deltaTime *5f;//quanto maior o num, mais rápido cresce o score
-        scoreText.text = Mathf.Round(score).ToString() + "m";
-    //}
-        
+        score+= Time.deltaTime *5f;//quanto maior o número, mais rápido cresce o score
+        scoreText.text = Mathf.Round(score).ToString() + "m";  
     }
 
 

@@ -1470,7 +1470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 894547b6ea6f92545a6c21f489ec95b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 20
   laneSpeed: 10
   jumpLength: 7.5
   jumpHeight: 8

@@ -76,17 +76,14 @@ public class PlayerScript : MonoBehaviour
             Invoke("GameOver", 3f);
             isDead = true;
         }
-
-        if(collision.gameObject.tag == "Coin"){
-            gc.AddCoin();
-            //Destroy(coinHit.transform.gameObject); (isso funcionava quando eu usava raycast)
-        }
     }
 
     void OnTriggerEnter(Collider moeda){
         if(moeda.tag == "Coin"){
             gc.AddCoin();
-            //Destroy(coinHit.transform.gameObject); (isso funcionava quando eu usava raycast)
+            //Destroy(moeda.transform.gameObject);
+            
+            
         }
     }
 
